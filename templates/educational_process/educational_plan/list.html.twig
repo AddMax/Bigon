@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Список учебных планов
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+
+
+				<div class="card-header">
+					<a href="{{ path('education_plan.create') }}" class="btn btn-success">Создать учебный план</a>
+				</div>
+
+				<div class="card-body">
+					<table class="table table-responsive-sm table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>{{ knp_pagination_sortable(pagination, 'Id', 'id') }}</th>
+								<th>{{ knp_pagination_sortable(pagination, 'Специальность', 'specialty') }}</th>
+								<th>{{ knp_pagination_sortable(pagination, 'Квалификация', 'qualification') }}</th>
+								<th>{{ knp_pagination_sortable(pagination, 'Форма образования', 'form_education') }}</th>
+								<th>{{ knp_pagination_sortable(pagination, 'Статус', 'status') }}</th>
+								<th>Операции</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for educationalPlan in pagination %}
+								<tr>
+									<td>{{ educationalPlan.id }}</td>
+									<td>{{ educationalPlan.specialty }}</td>
+									<td>{{ educationalPlan.qualification }}</td>
+									<td>{{ educationalPlan.form_education }}</td>
+									<td>{{ educationalPlan.status }}</td>
+									<td>
+										<a href="{{ path('education_plan.show', {'id': educationalPlan.id}) }}" class="btn btn-sm btn-danger">Просмотр</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+
+				<nav>
+					{{ knp_pagination_render(pagination) }}
+				</nav>
+
+
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

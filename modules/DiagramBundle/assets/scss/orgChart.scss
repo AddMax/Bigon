@@ -1,0 +1,127 @@
+//colors
+$color_corn_field_approx: #fcfaca;
+$black: black;
+$color_mercury_approx: #e7e7e7;
+$white: #ffffff;
+$color_alabaster_approx: #fbfbfb;
+$color_alto_approx: #ddd;
+$color_titan_white_approx: #eef;
+
+//urls
+$url_0: url(./add.png);
+$url_1: url(./delete.png);
+
+//@extend-elements
+//original selectors
+//.org-add-button:hover, .org-del-button:hover
+%extend_1 {
+  background-color: $color_titan_white_approx;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.org-add-button {
+  position: absolute;
+  font-size: 12px;
+  bottom: 3px;
+  left: 5px;
+  padding-left: 13px;
+  background: $url_0 no-repeat 0 3px;
+  &:hover {
+    @extend %extend_1;
+  }
+}
+.org-del-button {
+  position: absolute;
+  font-size: 12px;
+  background: $url_1 no-repeat;
+  width: 12px;
+  height: 12px;
+  bottom: 7px;
+  right: 5px;
+  &:hover {
+    @extend %extend_1;
+  }
+}
+.org-confirm-del-button {
+  position: absolute;
+  font-size: 12px;
+  display: none;
+}
+.org-input {
+  width: 90px;
+}
+div.orgChart {
+  margin: 10px;
+  padding: 20px;
+  h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    min-height: 20px;
+    &:hover {
+      background: $color_corn_field_approx;
+      cursor: text;
+    }
+  }
+  ul {
+    list-style: none;
+    margin: 4px;
+    padding: 0;
+    font-size: 0.8em;
+    text-align: left;
+    &.stack {
+      text-align: center;
+      ul {
+        text-align: center;
+      }
+    }
+  }
+  table {
+    width: 100%;
+  }
+  td {
+    text-align: center;
+    vertical-align: top;
+    padding: 0 2px;
+  }
+  tr.lines td {
+    &.line {
+      width: 1px;
+      height: 20px;
+    }
+    &.top {
+      border-top: 1px dashed $black;
+    }
+    &.left {
+      border-right: 1px dashed $black;
+    }
+    &.right {
+      border-left: 0 dashed $black;
+    }
+    &.half {
+      width: 50%;
+    }
+  }
+  div.node {
+    cursor: default;
+    border: 1px solid $color_mercury_approx;
+    display: inline-block;
+    padding: 5px;
+    width: 96px;
+    height: 60px;
+    background: $white;
+    background: linear-gradient(
+      to bottom,
+      $white 0,
+      $color_alabaster_approx 100%
+    );
+    line-height: 1.3em;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 4px;
+    position: relative;
+    //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: 1px 1px 0 $color_alto_approx;
+  }
+}

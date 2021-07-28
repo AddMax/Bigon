@@ -1,0 +1,25 @@
+{% block phpmob_recaptcha_widget %}
+    {% spaceless %}
+        {% if form.vars.enabled %}
+            <script type="text/javascript">
+                (function () {
+                    var script = document.createElement("script");
+                    script.type = "text/javascript";
+                    script.src = "https://www.google.com/recaptcha/api.js?onload=onRecaptchaloadCallback&render=explicit";
+                    script.defer = true;
+                    script.async = true;
+
+                    document.getElementsByTagName("head")[0].appendChild(script);
+                })();
+
+                var onRecaptchaloadCallback = function () {
+                    grecaptcha.render('{{ form.vars.id }}', {
+                        'sitekey': '{{ form.vars.site_key }}',
+                        'theme': '{{ form.vars.theme }}'
+                    });
+                };
+            </script>
+            <div id="{{ form.vars.id }}"></div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}

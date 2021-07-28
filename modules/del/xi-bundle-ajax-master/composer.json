@@ -1,0 +1,24 @@
+{
+    "name": "xi/ajax-bundle",
+    "description": "Xi Ajax Bundle for basic ajax functionality with forms and elements. Includes customizable loading animations and error handler stack",
+    "keywords": ["ajax", "json"],
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "xi-project",
+            "email": "xi.devs@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "symfony/framework-bundle": ">=2.3.0",
+        "symfony/form": ">=2.3.0",
+        "symfony/dependency-injection": ">=2.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Xi\\Bundle\\AjaxBundle": ""
+        }
+    },
+    "target-dir": "Xi/Bundle/AjaxBundle"
+}

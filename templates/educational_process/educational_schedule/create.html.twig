@@ -1,0 +1,189 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Создание новой учетной записи{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">Создание новой учетной записи</div>
+            <div class="card-body">
+
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+
+                <button type="button" class="add-another-collection-widget" data-list-selector="#form_tags">Add another email</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">Элементы</div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Количество недель
+                        <div class="float-rigth" data-controller="hello">
+                            <span class="badge badge-primary badge-pill">52</span>
+                            <a href="{{ path('education_schedule.week') }}" class="btn btn-light btn-sm" data-action="hello#week" data-hello-target="source"><i class="cil-pencil c-icon"></i></a>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Начало обучения (месяц)
+                        <div class="float-rigth">
+                            <span class="badge badge-primary badge-pill">Сентябрь</span>
+                            <a href="#" class="btn btn-light btn-sm"><i class="cil-pencil c-icon"></i></a>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Конец обучения (месяц)
+                        <div class="float-rigth">
+                            <span class="badge badge-primary badge-pill">Август</span>
+                            <a href="#" class="btn btn-light btn-sm"><i class="cil-pencil c-icon"></i></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% set monthsName = ['Сентябрь','Октябрь','Ноябрь','Декабрь','Январь'] %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">Создание новой учетной записи</div>
+            <div class="card-body">
+                    <table class="table table-responsive table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                {{ _self.thTableCenter('№','tg-0pky', '50px') }}
+                                {{ _self.thTableVertical('Курсы','tg-1pky', '50px') }}
+                                {# {% for month in monthsName %}
+                                    {{ _self.thTableCenter(month,'tg-0pky', '50px') }}
+                                {% endfor %} #}
+                                {% for i in 1..52 %}
+                                    {{ _self.thTableCenter(i,'tg-0pky', '50px') }}
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td></td>
+                            <td>I</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>II</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>III</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>IV</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>V</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</a>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      {# <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> #}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>   
+        $('.add-another-collection-widget').click(function (e) {
+
+        var list = $($(this).attr('data-list-selector'));
+        // Try to find the counter of the list or use the length of the list
+        var counter = list.children().length;
+
+        // grab the prototype template
+        var newWidget = list.attr('data-prototype');
+        // replace the "__name__" used in the id and name of the prototype
+        // with a number that's unique to your emails
+        // end name attribute looks like name="contact[emails][2]"
+        newWidget = newWidget.replace(/__name__/g, counter);
+        // Increase the counter
+        counter++;
+
+        console.log(newWidget);
+
+        // create a new list element and add it to the list
+        // var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+        list.append(newWidget);
+        // newElem.appendTo(list);
+
+
+        });
+    </script>   
+
+{% endblock %}
+ 
+{% macro thTableVertical(name, class, width) %}
+	<th class="{{ class }}" style="width: {{ width }};">
+		<span style="writing-mode: vertical-rl; transform: rotate(180deg);">
+			{{ name | raw }}
+		</span>
+	</th>
+{% endmacro %}
+
+{% macro thTableCenter(name, class, width) %}
+	<th class="{{ class }}" style="width: {{ width }}; text-align: center;">
+			{{ name | raw }}
+	</th>
+{% endmacro %}

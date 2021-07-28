@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Graphviz Online</title>
+</head>
+
+<body>
+  <script src="viz.js"></script>
+  <script src="full.render.js"></script>
+  <script>
+    var viz = new Viz();
+    
+    viz.renderSVGElement('digraph { graph [rankdir = "LR"]; node [shape=box fontname=Arial]; rA -> sA [style=dashed, color=grey]; sA -> vB; t  -> rA; uB -> vB; wB -> u; wB -> tA; "node1" [label = "<f0> 0xf7fc4380| <f1> | <f2> |-1" shape = "record"]; }')
+    .then(function(element) {
+      document.body.appendChild(element);
+    })
+    .catch(error => {
+      // Create a new Viz instance (@see Caveats page for more info)
+      viz = new Viz();
+  
+      // Possibly display the error
+      console.error(error);
+    });
+    
+  </script></body>
+
+</html>

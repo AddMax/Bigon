@@ -1,0 +1,227 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование - III. План образовательного процесса
+{% endblock %}
+
+{% block body %}
+
+	{{ include('educational_process/subjects_plan/_tabs.html.twig') }}
+
+	{% set groups = 
+	[
+		{ key:0, name:'Гос.компонент' },
+		{ key:1, name:'Компонент' },
+		{ key:2, name:'Модуль' },
+	] 
+	%}
+
+	{% set levels = 
+	[
+		{ id:'1', type:'group', group:'', name:'Группа - Гос.компонент' },
+		{ id:'1.1',type:'subgroup', name:'Подгруппа' },
+		{ id:'1.1.1',type:'subject', name:'Предмет' },
+		{ id:'1.1.2',type:'subject', name:'Предмет' },
+		{ id:'1.1.3',type:'subgroup', name:'Подгруппа' },
+		{ id:'1.1.3.1',type:'subject', name:'Предмет' },
+		{ id:'1.1.3.2',type:'subject', name:'Предмет' },
+		{ id:'1.2',type:'subgroup', name:'Подгруппа' },
+		{ id:'1.2.1',type:'subject', name:'Предмет' },
+		{ id:'1.2.2',type:'subject', name:'Предмет' },
+		{ id:'1.3',type:'subgroup', name:'Подгруппа' },
+		{ id:'1.3.1',type:'subject', name:'Предмет' },
+		{ id:'1.3.2',type:'subject', name:'Предмет' },
+
+		{ id:'2', type:'group', name:'Группа - УО.компонент' },
+		{ id:'2.1',type:'subject', name:'Предмет' },
+		{ id:'2.2',type:'subgroup', name:'Подгруппа' },
+		{ id:'2.2.1',type:'subject', name:'Предмет' },
+		{ id:'2.2.2',type:'subject', name:'Предмет' },
+	] 
+	%}
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="card-header">
+					III. План образовательного процесса
+				</div>
+				<div class="card-body">
+					<table id="sortable" class="table table-responsive table-bordered table-striped table-hover" style="width: auto;">
+						<thead>
+							<tr>
+								<th rowspan="4" style="width: 60px;">N</th>
+								<th rowspan="4" style="width: 250px;">Наименование</th>
+								<th rowspan="4" style="width: 60px;">
+									<span style="writing-mode: vertical-rl; transform: rotate(180deg);">
+										Экзамены
+									</span>
+								</th>
+								<th rowspan="4" style="width: 60px;">
+									<span style="writing-mode: vertical-rl; transform: rotate(180deg);">
+										Зачеты
+									</span>
+								</th>
+								<th colspan="6" style="width: 60px;">Количество академических часов</th>
+								<th colspan="12" style="width: 60px;">Распределение по курсам и семестрам</th>
+								<th rowspan="4" style="width: 60px;">{{ _self.spanVertical('Зачетные единицы') }}</th>
+							</tr>
+							<tr>
+								<th rowspan="3" style="width: 60px;">
+									<span style="writing-mode: vertical-rl; transform: rotate(180deg);">
+										Всего
+									</span>
+								</th>
+								<th rowspan="3" style="width: 60px;">
+									<span style="writing-mode: vertical-rl; transform: rotate(180deg);">
+										Аудиторных
+									</span>
+								</th>
+								<th colspan="4">Из них</th>
+								<th colspan="6">1 курс</th>
+								<th colspan="6">2 курс</th>
+							</tr>
+							<tr>
+								<th rowspan="2" style="width: 60px;">
+									<span style="writing-mode: vertical-rl; transform: rotate(180deg);">
+										Лекции
+									</span>
+								</th>
+								<th rowspan="2" style="width: 60px;">
+									<span style="writing-mode: vertical-rl; transform: rotate(180deg);">
+										Лабораторные
+									</span>
+								</th>
+								<th rowspan="2" style="width: 60px;">
+									<span style="writing-mode: vertical-rl; transform: rotate(180deg);">
+										Практические
+									</span>
+								</th>
+								<th rowspan="2" style="width: 60px;">
+									<span style="writing-mode: vertical-rl; transform: rotate(180deg);">
+										Семинарские
+									</span>
+								</th>
+								<th colspan="3">1 семестр</th>
+								<th colspan="3">2 семестр</th>
+								<th colspan="3">1 семестр</th>
+								<th colspan="3">2 семестр</th>
+							</tr>
+							<tr>
+								<th style="width: 60px;">{{ _self.spanVertical('Всего часов') }}</th>
+								<th style="width: 60px;">{{ _self.spanVertical('Ауд. часов') }}</th>
+								<th style="width: 60px;">{{ _self.spanVertical('Зач. единиц') }}</th>
+								<th style="width: 60px;">{{ _self.spanVertical('Всего часов') }}</th>
+								<th style="width: 60px;">{{ _self.spanVertical('Ауд. часов') }}</th>
+								<th style="width: 60px;">{{ _self.spanVertical('Зач. единиц') }}</th>
+								<th style="width: 60px;">{{ _self.spanVertical('Всего часов') }}</th>
+								<th style="width: 60px;">{{ _self.spanVertical('Ауд. часов') }}</th>
+								<th style="width: 60px;">{{ _self.spanVertical('Зач. единиц') }}</th>
+								<th style="width: 60px;">{{ _self.spanVertical('Всего часов') }}</th>
+								<th style="width: 60px;">{{ _self.spanVertical('Ауд. часов') }}</th>
+								<th style="width: 60px;">{{ _self.spanVertical('Зач. единиц') }}</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for level in levels %}
+
+								<tr id="{{ level.id }}" data-type="{{ level.type }}" {{ level.type in ['group' ,'subgroup' ] ? 'class="cancel-sort"' }}>
+									<th>{{ level.id }}</th>
+									<th>
+										{% if level.type in ['group','subgroup'] %}
+											<button class="context-menu-one btn btn-sm" style="cursor: context-menu;">
+												<i class="cil-menu c-icon"></i>
+											</button>
+										{% else %}
+											<button id="sortable-handle" class="btn btn-sm" style="cursor: move;">
+												<i class="cil-move c-icon"></i>
+											</button>
+											<button class="context-menu-one btn btn-sm" style="cursor: context-menu;">
+												<i class="cil-menu c-icon"></i>
+											</button>
+										{% endif %}
+										<span>{{ level.name|raw }}</span>
+									</th>
+									<td class="cell-edit"></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+
+							{% endfor %}
+						</tbody>
+					</table>
+
+					<div class="col">
+						<button id="order">Порядок</button>
+					</div>
+
+				</div>
+				<div class="card-footer" id="example-summa">
+					Сумма = ?
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+
+{% block myDialog %}
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Modal body text goes here.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+
+	{{ encore_entry_link_tags('tables') }}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{{ encore_entry_script_tags('tables') }}
+
+{% endblock %}
+
+{% macro spanVertical(name) %}
+	<span style="writing-mode: vertical-rl; transform: rotate(180deg);">
+		{{ name | raw }}
+	</span>
+{% endmacro %}

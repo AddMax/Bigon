@@ -1,0 +1,44 @@
+parameters:
+    # Здесь могут быть параметры бандла
+    
+services:
+    # Конфигурация по умолчанию (только для этого файла)
+    _defaults:
+        # Включает механизм автоматической подстановки зависимостей контейнера в ваши сервисы
+        autowire: true
+        # Включает механизм автоконфигурации
+        autoconfigure: true
+
+    kudin\SettingsBundle\Manager\SettingsManagerInterface: '@kudin\SettingsBundle\Manager\SettingsManager'
+
+    kudin\SettingsBundle\Manager\SettingsManager:
+        arguments: [ '@doctrine.orm.entity_manager', '@kudin\SettingsBundle\Serializer\SerializerInterface', ~ ]
+
+    kudin\SettingsBundle\Manager\CachedSettingsManager:
+        arguments: [ '@kudin\SettingsBundle\Manager\SettingsManager', ~, ~ ]
+
+    kudin\SettingsBundle\Serializer\SerializerInterface:
+        class: kudin\SettingsBundle\Serializer\PhpSerializer
+        factory: kudin\SettingsBundle\Serializer\SerializerFactory::create
+        arguments: ['%settings_manager.serialization%']
+
+    kudin\SettingsBundle\Form\Type\SettingsType:
+        arguments: [ ~ ]
+        tags:
+            - { name: form.type }
+
+    kudin\SettingsBundle\Twig\SettingsExtension:
+        arguments: [ '@kudin\SettingsBundle\Manager\SettingsManagerInterface' ]
+        tags:
+            - { name: twig.extension }
+
+
+    kudin\SettingsBundle\Controller\SettingsController:
+        arguments:
+            - '@translator'
+            - '@kudin\SettingsBundle\Manager\SettingsManagerInterface'
+            - ~ # template
+            - ~ # manage own settings
+            - ~ # security role
+# test
+    kudin\SettingsBundle\Controller\TestController: ~

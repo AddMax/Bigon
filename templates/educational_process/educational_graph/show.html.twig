@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование - I. График образовательного процесса (React)
+{% endblock %}
+
+{% block body %}
+
+	{{ include('educational_process/educational_graph/_tabs.html.twig') }}
+
+
+	<div id="educational-graph-app"></div>
+
+	{{ form_start(form) }}
+	{# {{ form_widget(form) }} #}
+	{# <button type="submit" class="btn btn-primary" disabled >Сохранить</button> #}
+	{{ form_end(form) }}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+
+	{{ encore_entry_link_tags('educational-graph') }}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{{ encore_entry_script_tags('educational-graph') }}
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{#
+    variables:
+    - form
+    - form_theme
+#}
+
+{% block form %}
+    <div class="imatic-view-form">
+        {{ form(form, {attr: {novalidate: 'novalidate' } }) }}
+        {{ imatic_form_javascript(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{
+    "name": "imatic/view-bundle",
+    "type": "library",
+    "description": "Bundle with predefined UI components",
+    "keywords": [],
+    "homepage": "https://www.imatic.cz",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stepan Koci",
+            "email": "stepan.koci@imatic.cz"
+        },
+        {
+            "name": "Imatic Software s.r.o.",
+            "homepage": "https://www.imatic.cz"
+        }
+    ],
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "knplabs/knp-menu-bundle": "^2.3|^3.0",
+        "symfony/asset": "^4.4|^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/framework-bundle": "^4.4|^5.0",
+        "symfony/security-bundle": "^4.4|^5.0",
+        "twig/twig": "^2.12|^3.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.7",
+        "imatic/form-bundle": "^5.0",
+        "imatic/testing": "^6.0",
+        "symfony/browser-kit": "^4.4|^5.0",
+        "symfony/phpunit-bridge": "^4.4|^5.0",
+        "symfony/web-profiler-bundle": "^4.4|^5.0",
+        "symfony/yaml": "^4.4|^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Imatic\\Bundle\\ViewBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "Tests/"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

@@ -1,0 +1,40 @@
+{
+    "name": "phpmob/recaptcha-bundle",
+    "description": "Spam protect with google reCAPTCHA",
+    "keywords": [
+        "google",
+        "recaptcha",
+        "spam-protect"
+    ],
+    "homepage": "http://github.com/phpmob/recaptcha-bundle",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ishmael Doss",
+            "email": "nukboon@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^5.5.9|^7.0.8",
+        "symfony/form": "^3.4",
+        "symfony/validator": "^3.4",
+        "symfony/http-foundation": "^3.4",
+        "symfony/config": "^3.4",
+        "symfony/http-kernel": "^3.4",
+        "symfony/dependency-injection": "^3.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhpMob\\ReCaptchaBundle\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhpMob\\ReCaptchaBundle\\spec\\": "spec/"
+        }
+    }
+}

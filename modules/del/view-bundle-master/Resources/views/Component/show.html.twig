@@ -1,0 +1,24 @@
+{#
+    variables:
+    - item
+    - show
+    - fields
+#}
+
+{% block show %}
+    <div class="imatic-view-show">
+        {% set fields = imatic_view_show_fields(fields | default([])) %}
+        {% set show = imatic_view_show(show | default([])) %}
+
+        {% block title %}<h2>{{ item }}</h2>{% endblock %}
+
+        {% block table_tag %}<table class="table table-sm">{% endblock %}
+            {% for field in fields %}
+                <tr class="{{ field.format }} {{ field.class }}">
+                    <th>{{ field.label|trans({}, show.translationDomain) }}</th>
+                    <td>{{ imatic_view_render_value(item, field.propertyPath, field.format, field.formatOptions) }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

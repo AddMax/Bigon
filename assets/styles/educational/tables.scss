@@ -1,0 +1,19 @@
+// @import  "~tabulator-tables/src/scss/tabulator.scss";
+@import "~jquery-ui/themes/base/core.css";
+@import "~jquery-ui/themes/base/dialog.css";
+@import "~jquery-ui/themes/base/sortable.css";
+
+#sortable.table {
+  thead {
+    th {
+      text-align: center;
+    }
+  }
+  td {
+    text-align: center;
+    input[type="text"] {
+      background: aqua;
+      width: 100%;
+    }
+  }
+}

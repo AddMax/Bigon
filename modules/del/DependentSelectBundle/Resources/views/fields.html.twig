@@ -1,0 +1,47 @@
+{% block dependent_filtered_entity_widget %}
+
+    <select {{ block('widget_attributes') }}></select>
+
+    <script type="text/javascript">
+        jQuery(function(){
+
+            jQuery("select#{{ form.parent.offsetGet( parent_field ).vars.id }}").change( function() {
+                var selected_index = {{ value ? value : 0 }};
+                jQuery.ajax({
+                    type: "POST",
+                    data: {
+                        parent_id: jQuery(this).val(),
+                        {% if fallback_parent_field is not null %}
+                        fallback_parent_id: jQuery("#{{ form.parent.offsetGet( fallback_parent_field ).vars.id }}").val(),
+                        {% endif %}
+                        entity_alias: "{{ entity_alias }}",
+                        empty_value: "{{ empty_value }}",
+                        excluded_entity_id: "{{ excluded_entity_id }}",
+                        choice_translation_domain: "{{ choice_translation_domain }}",
+                        choice_title_translation_part: "{{ choice_title_translation_part }}",
+                        callback_parameters: '{{ callback_parameters|json_encode|raw }}'
+                    },
+                    url:"{{ path('dependent_select') }}",
+                    success: function(msg){
+                        if (msg != ''){
+                            jQuery("select#{{ form.vars.id }}").html(msg).show();
+                            jQuery.each(jQuery("select#{{ form.vars.id }} option"), function (index, option){
+                                if (jQuery(option).val() == selected_index)
+                                    jQuery(option).prop('selected', true);
+                            });
+                            jQuery("select#{{ form.vars.id }}").trigger('change');
+                        } else {
+                            jQuery("select#{{ form.vars.id }}").html('<em>{{ no_result_msg|trans() }}</em>');
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError){
+                        jQuery('html').html(xhr.responseText);
+                    }
+                });
+            });
+
+            jQuery("select#{{ form.parent.offsetGet( parent_field ).vars.id }}").trigger('change');
+        });
+    </script>
+
+{% endblock %}

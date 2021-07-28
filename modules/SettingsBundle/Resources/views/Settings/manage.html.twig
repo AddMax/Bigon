@@ -1,0 +1,10 @@
+{% extends '@Settings/layout.html.twig' %}
+
+{% block content %}
+    <h1>{% trans from 'settings' %}settings{% endtrans %}</h1>
+
+    {{ form_start(settings_form) }}
+        {{ form_widget(settings_form) }}
+        <input type="submit" value="{% trans from 'settings' %}save{% endtrans %}" />
+    {{ form_end(settings_form) }}
+{% endblock %}

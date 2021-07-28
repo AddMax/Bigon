@@ -1,0 +1,44 @@
+{# <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="message error">{{ flashMessage }}</div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="message success">{{ flashMessage }}</div>
+        {% endfor %}
+        {% block content %}{% endblock %}
+    </body>
+</html> #}
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+
+	{# {{ encore_entry_link_tags('diagram-editor-styles') }} #}
+
+{% endblock %}
+
+{% block body %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="message error">{{ flashMessage }}</div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="message success">{{ flashMessage }}</div>
+        {% endfor %}
+        {% block content %}{% endblock %}
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{# {{ encore_entry_script_tags('diagram-editor-app') }} #}
+
+{% endblock %}

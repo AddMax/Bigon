@@ -1,0 +1,31 @@
+{
+  "name": "kudin/settings-bundle",
+  "description": "Database centric Symfony configuration management. Global and per-user settings supported.",
+  "keywords": [
+    "symfony",
+    "bundle",
+    "config",
+    "configuration",
+    "settings"
+  ],
+  "type": "symfony-bundle",
+  "authors": [
+    {
+      "name": "Kudin M V",
+      "email": "ipkudin@yandex.by"
+    }
+  ],
+  "require": {
+    "php": "^7.1"
+  },
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "kudin\\SettingsBundle\\": ""
+    }
+  },
+  "extra": {},
+  "suggest": {
+    "cache/adapter-bundle": "This bundle will help you to add your PSR-6 cache implementations as Symfony services"
+  }
+}

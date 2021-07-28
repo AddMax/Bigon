@@ -1,0 +1,4 @@
+{{ form_start(form,{'attr':{'action':app.request.uri,'method':'post','data-controller':'forms'}}) }}
+{{ form_widget(form) }}
+<button type="submit" class="btn btn-primary" data-action="forms#sendForm">Сохранить</button>
+{{ form_end(form) }}

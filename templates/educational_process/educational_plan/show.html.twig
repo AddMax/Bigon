@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Просмотр учебного плана
+{% endblock %}
+
+{% block body %}
+	{{ include('educational_process/educational_plan/_tabs.html.twig') }}
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="card">
+				<div class="card-header">Исходные данные учебного плана
+					<div class="card-header-actions">
+						<a href="{{ path('education_plan.edit', {'id': educationalPlan.id}) }}" class="card-header-action">
+							<i class="cil-color-border c-icon"></i>
+						</a>
+					</div>
+				</div>
+				<div class="card-body">
+					<dl class="row">
+						<dt class="col-sm-3">Регистрационный номер:</dt>
+						<dd class="col-sm-9">59-21/уч</dd>
+
+						<dt class="col-sm-3">Специальность:</dt>
+						<dd class="col-sm-9">{{educationalPlan.specialty}}</dd>
+
+						<dt class="col-sm-3">Направление специальности:</dt>
+						<dd class="col-sm-9">{{educationalPlan.direction}}</dd>
+
+						<dt class="col-sm-3">Специализация:</dt>
+						<dd class="col-sm-9">{{educationalPlan.specialization}}</dd>
+
+						<dt class="col-sm-3">Квалификация специалиста:</dt>
+						<dd class="col-sm-9">{{educationalPlan.qualification}}</dd>
+
+						<dt class="col-sm-3">Форма получения образования</dt>
+						<dd class="col-sm-9">{{educationalPlan.formEducation.getName()}}</dd>
+
+						<dt class="col-sm-3">Статус</dt>
+						<dd class="col-sm-9">{{educationalPlan.status.getName()}}</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card">
+				<div class="card-header">Операции над документом</div>
+				<div class="card-body">
+					<ul class="list-group">
+						<li class="list-group-item">Ссылка 1</li>
+						<li class="list-group-item">Ссылка 2</li>
+						<li class="list-group-item">Удалить учебный план</li>
+						<li class="list-group-item">Создать в PDF</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="card">
+				<div class="card-header">I. График образовательного процесса
+					<div class="card-header-actions">
+						<a href="{{ path('education_schedule.show', {'id': educationalPlan.id}) }}" class="card-header-action">
+							<i class="cil-color-border c-icon"></i>
+						</a>
+					</div>
+				</div>
+				<div class="card-body"></div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card">
+				<div class="card-header">II. Сводные данные по бюджету времени
+					<div class="card-header-actions">
+						<a href="#" class="card-header-action">
+							<i class="cil-color-border c-icon"></i>
+						</a>
+					</div>
+				</div>
+				<div class="card-body"></div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card">
+				<div class="card-header">III. План образовательного процесса
+					<div class="card-header-actions">
+						<a href="{{ path('education_subjects.show', {'id': educationalPlan.id}) }}" class="card-header-action">
+							<i class="cil-color-border c-icon"></i>
+						</a>
+					</div>
+				</div>
+				<div class="card-body"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="card">
+				<div class="card-header">IV. Учебные практики
+					<div class="card-header-actions">
+						<a href="#" class="card-header-action">
+							<i class="cil-color-border c-icon"></i>
+						</a>
+					</div>
+				</div>
+				<div class="card-body"></div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card">
+				<div class="card-header">V. Производственные практики
+					<div class="card-header-actions">
+						<a href="#" class="card-header-action">
+							<i class="cil-color-border c-icon"></i>
+						</a>
+					</div>
+				</div>
+				<div class="card-body"></div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card">
+				<div class="card-header">VI. Итоговая аттестация
+					<div class="card-header-actions">
+						<a href="#" class="card-header-action">
+							<i class="cil-color-border c-icon"></i>
+						</a>
+					</div>
+				</div>
+				<div class="card-body"></div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}

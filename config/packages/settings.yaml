@@ -1,0 +1,34 @@
+settings:
+    template: '@Settings/Settings/manage.html.twig'
+    cache_service: null
+    cache_lifetime: 3600
+    security:
+         manage_global_settings_role: ROLE_USER
+         users_can_manage_own_settings: true
+    serialization: php # database serialization mechanism (php|json)
+    settings:
+        my_first_setting:
+            scope: all # global or user
+            type: Symfony\Component\Form\Extension\Core\Type\NumberType # any Symfony form type, or FQCN for Symfony >=3.0
+            options: # options passed to form
+                required: false
+            constraints:
+                Symfony\Component\Validator\Constraints\Range:
+                    min: 1
+                    max: 65535
+        my_second_setting:
+            scope: all # global or user
+            type: Symfony\Component\Form\Extension\Core\Type\TextType
+            options:
+                help: 'John Doe'
+            constraints:
+                Symfony\Component\Validator\Constraints\Regex:
+                    pattern: '/^\d+$/'
+        my_three_setting:
+            scope: global # user or all
+            type: Symfony\Component\Form\Extension\Core\Type\TextareaType
+            options:
+                label: 'John Doe'
+            constraints:
+                Symfony\Component\Validator\Constraints\Regex:
+                    pattern: '/^[а-яА-ЯёЁ0-9\s]+$/u'

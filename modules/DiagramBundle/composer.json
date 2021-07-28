@@ -1,0 +1,39 @@
+{
+  "name": "kudin/diagram-bundle",
+  "version": "0.1.0",
+  "type": "symfony-bundle",
+  "description": "Diagram bundles",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Kudin M V",
+      "email": "ipkudin@yandex.by"
+    }
+  ],
+  "require": {
+    "php": "^7.3"
+  },
+  "require-dev": {},
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "kudin\\DiagramBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "kudin\\DiagramBundle\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "./vendor/bin/simple-phpunit"
+  },
+  "extra": {
+    "symfony": {
+      "allow-contrib": false,
+      "require": "5.0.*"
+    }
+  }
+}

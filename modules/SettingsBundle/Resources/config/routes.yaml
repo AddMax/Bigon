@@ -1,0 +1,11 @@
+project_settings_manage_global:
+    path:         /global
+    defaults:     { _controller: kudin\SettingsBundle\Controller\SettingsController::manageGlobalAction }
+
+project_settings_manage_own:
+    path:         /personal
+    defaults:     { _controller: kudin\SettingsBundle\Controller\SettingsController::manageOwnAction }
+
+project_settings_test:
+    path:         /test
+    defaults:     { _controller: kudin\SettingsBundle\Controller\TestController::testAction }

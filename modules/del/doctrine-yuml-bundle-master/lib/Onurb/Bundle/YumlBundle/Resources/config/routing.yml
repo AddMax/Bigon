@@ -1,0 +1,3 @@
+doctrine_yuml_mapping:
+    path:     /yuml
+    controller: onurb_yuml.controller:indexAction

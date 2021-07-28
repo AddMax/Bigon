@@ -1,0 +1,45 @@
+{% extends '@ImaticView/Demo/base.html.twig' %}
+
+{% block headline 'Grid component' %}
+
+{% block action %}
+    {% set route = app.request.get('_route') %}
+    {% set routeParams = {'id': '#id'} %}
+
+    <h3>Simple table</h3>
+    {% example %}
+    {{ include('@ImaticView/Component/table.html.twig', {
+        'items': [
+            {name: 'Jan', age: 30, email: 'jan@example.com'},
+            {name: 'Steve', age: 34, email: 'steve@example.com'},
+            {name: 'Mary', age: 25, email: 'mary@example.com'}
+        ],
+        'columns': ['[name]', '[email]', '[age]']
+    }, with_context = false) }}
+
+    {% endexample %}
+
+    <h3>Advanced table</h3>
+    {% example %}
+    {# items var is provided by controller #}
+
+    {% set table = {
+        'selectable': false,
+        'actions': [{'label': 'Show', route: route, routeParams: routeParams, nested: [{label: 'Edit', route: route}, {label: 'Delete', route: route}]}],
+        'selectableColumn': 'id',
+    } %}
+
+    {% set columns = [
+        {name: 'name', format: 'text'},
+        {name: 'age', format: 'number'},
+        {name: 'active', format: 'boolean'},
+        {name: 'lastOnline', format: 'date'},
+        {name: 'phone', format: 'phone'},
+        {name: 'email', format: 'email'},
+        {name: 'url', format: 'url'}
+    ] %}
+
+    {{ include('@ImaticView/Component/table.html.twig') }}
+    {% endexample %}
+
+{% endblock %}

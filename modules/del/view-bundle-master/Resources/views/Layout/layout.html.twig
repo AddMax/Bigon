@@ -1,0 +1,106 @@
+{% import '@ImaticView/Component/menu.html.twig' as menu %}
+{% import '@ImaticView/Component/message.html.twig' as message %}
+{% import '@ImaticView/Component/button.html.twig' as button %}
+{% set asset_bundle_name = asset_bundle_name is defined ? asset_bundle_name : 'bundles/imaticview/platform' %}
+{% block document -%}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|slice(0, 2) }}" data-base-path="{{ app.request.basePath }}">
+<head>
+    <meta charset="UTF-8">
+
+    {% block stylesheets %}
+        {%- if asset_bundle_name is not null -%}
+            <link rel="stylesheet" href="{{ asset("#{asset_bundle_name}.css") }}" type="text/css">
+        {%- endif -%}
+    {% endblock %}
+
+    {% block javascripts %}
+        {%- if asset_bundle_name is not null -%}
+            <script src="{{ asset("#{asset_bundle_name}.js") }}" type="text/javascript"></script>
+        {%- endif -%}
+    {% endblock %}
+
+    <title>{% block title_top %}{% apply spaceless %}
+            {% block title %}{{ block('headline') }}{% endblock %}
+        {% endapply %} - {% apply spaceless %}
+            {% block application_name %}Imatic IS{% endblock %}
+        {% endapply %}{% endblock %}</title>
+
+    {% block metas -%}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% endblock %}
+
+    {% block icons -%}
+         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    {% endblock %}
+</head>
+
+<body>
+
+{% block body %}
+
+    {% block header_full %}
+        <header>
+            {% block header %}
+                <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                    {% block header_logo %}
+                        <a class="navbar-brand" href="{{ path('homepage') }}">
+                            {% block header_brand %}{{ block('application_name') }}{% endblock %}
+                        </a>
+                    {% endblock %}
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        {% block header_menu %}
+                            {{ menu.menu('imatic.main', null, null, { 'class': 'mr-auto' }) }}
+                            {{ menu.menu('imatic.main_side') }}
+                        {% endblock %}
+                    </div>
+                </nav>
+            {% endblock %}
+
+                <div class="headline">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h1>{% apply spaceless %}{% block headline %}{{ block('application_name') }}{% endblock %}{% endapply %}</h1>
+                            </div>
+                            <div class="col-md-5 headline-side">
+                                {% block headline_side %}{% block page_actions %}{{ button.group(page_actions|default([]), _context) }}{% endblock %}{% endblock %}
+                            </div>
+                        </div>
+
+                        {% block breadcrumbs %}{% endblock %}
+                    </div>
+                </div>
+        </header>
+    {% endblock %}
+
+    <div class="container-fluid">
+        {% block flashes %}
+            {{ message.session_message() }}
+        {% endblock %}
+
+        {% block action_before %}{% endblock %}
+        {% block action %}{% endblock %}
+        {% block action_after %}{% endblock %}
+    </div>
+
+    {% block footer_full %}
+    <footer class="container-fluid">
+        <div class="footer-content">
+            <a title="{{ 'Copyright'|trans({}, 'ImaticViewBundle') }}" href="https://www.imatic.cz" target="_blank">
+                {{ 'Copyright'|trans({}, 'ImaticViewBundle') }}
+            </a>
+        </div>
+    </footer>
+    {% endblock %}
+
+{% endblock %}
+
+</body>
+</html>
+{%- endblock %}

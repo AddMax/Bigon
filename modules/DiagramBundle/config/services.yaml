@@ -1,0 +1,12 @@
+parameters:
+    # Здесь могут быть параметры бандла
+    
+services:
+    # Конфигурация по умолчанию (только для этого файла)
+    _defaults:
+        # Включает механизм автоматической подстановки зависимостей контейнера в ваши сервисы
+        autowire: true
+        # Включает механизм автоконфигурации
+        autoconfigure: true
+
+    kudin\DiagramBundle\Controller\EditorController: ~

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+
+	{{ encore_entry_link_tags('diagram-editor-styles') }}
+
+{% endblock %}
+
+{% block body %}
+	<h1>Privet</h1>
+	<div id="orgChart"></div>
+	<div id="consoleOutput"></div>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{{ encore_entry_script_tags('diagram-editor-app') }}
+
+{% endblock %}

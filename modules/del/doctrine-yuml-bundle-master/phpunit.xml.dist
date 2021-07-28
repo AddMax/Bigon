@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<phpunit
+        bootstrap="./tests/Bootstrap.php"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        verbose="true"
+        stopOnFailure="false"
+        syntaxCheck="true" >
+    <testsuite name="Yuml Bundle tests">
+        <directory suffix="Test.php">./tests/OnurbTest/</directory>
+    </testsuite>
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./lib</directory>
+        </whitelist>
+    </filter>
+</phpunit>

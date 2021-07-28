@@ -1,0 +1,20 @@
+{
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
+    },
+    "kudin/education-graph": {
+        "version": "0.1.0"
+    },
+    "limenius/react-bundle": {
+        "version": "v5.0.3"
+    },
+    "limenius/react-renderer": {
+        "version": "v5.0.3"
+    },
+    "nacmartin/phpexecjs": {
+        "version": "v3.0.0"
+    },
+    "symfony/polyfill-php81": {
+        "version": "v1.23.0"
+    }
+}

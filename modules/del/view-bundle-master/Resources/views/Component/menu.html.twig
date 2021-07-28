@@ -1,0 +1,48 @@
+{% macro navbar(menu, options, renderer, config) %}
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container">
+            {{ _self._menu(menu, options, renderer, config|default({})|merge({ 'type': 'navbar-nav' })) }}
+        </div>
+    </nav>
+{% endmacro %}
+
+{% macro menu(menu, options, renderer, config) %}
+    {{ _self._menu(menu, options, renderer, config|default({})|merge({ 'type': 'navbar-nav' })) }}
+{% endmacro %}
+
+{% macro side(menu, options, renderer, config) %}
+    <nav class="sidebar-nav">
+        {{ _self._menu(menu, options, renderer, config|default({})|merge({ 'type': 'flex-column nav-pills' })) }}
+    </nav>
+{% endmacro %}
+
+{% macro tabs(menu, options, renderer, config) %}
+    {{ _self._menu(menu, options, renderer, config|default({})|merge({ 'type': 'nav-tabs' })) }}
+{% endmacro %}
+
+{% macro pills(menu, options, renderer, config) %}
+    {{ _self._menu(menu, options, renderer, config|default({})|merge({ 'type': 'nav-pills' })) }}
+{% endmacro %}
+
+{%- macro _menu(menu, options, renderer, config) -%}
+    {% apply spaceless %}
+        {% set children_class = [] %}
+        {% if config.class is defined %}
+            {% set children_class = children_class|merge([config.class]) %}
+        {% endif %}
+        {% if config.type is defined %}
+            {% set children_class = children_class|merge(['nav', config.type]) %}
+        {% endif %}
+        {% set options = options|default([])|merge({
+            'currentClass': 'active',
+            'allow_safe_labels': true,
+            'menu_class': children_class|join(' '),
+            'template': '@ImaticView/Component/knp_menu.html.twig',
+        }) %}
+        {% if menu is iterable %}
+            {{ imatic_view_menu_render_array(menu, options) }}
+        {% else %}
+            {{ knp_menu_render(menu, options, renderer) }}
+        {% endif %}
+    {% endapply %}
+{%- endmacro -%}

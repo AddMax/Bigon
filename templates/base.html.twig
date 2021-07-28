@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+			{% block stylesheets %}
+				{{ encore_entry_link_tags('app') }}
+			{% endblock %}
+	</head>
+	<body class="c-app">
+		<div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
+			<div class="c-sidebar-brand d-md-down-none">
+				Логотип
+			</div>
+
+			<!-- Sidebar content here -->
+			{% block sidebar %}
+
+			{{ knp_menu_render('sidebar', {'currentClass': 'c-active'}) }}
+
+			{% endblock %}
+			<!-- Sidebar content here -->
+			
+		</div>
+			
+		<div class="c-wrapper">
+			
+			<header class="c-header c-header-light c-header-fixed">
+				<button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
+					<i class="cil-menu"></i>
+				</button>
+
+				<button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar" data-class="c-sidebar-lg-show" responsive="true">
+					<i class="cil-menu"></i>
+				</button>
+				<!-- Header content here -->
+				<ul class="c-header-nav ml-auto mr-4">
+					<li class="c-header-nav-item d-md-down-none mx-2">
+						<a class="c-header-nav-link" href="#">
+							<i class="cil-bell c-icon"></i>
+						</a>
+					</li>
+					<li class="c-header-nav-item d-md-down-none mx-2">
+						<a class="c-header-nav-link" href="#">
+							<i class="cil-list-rich c-icon"></i>
+						</a>
+					</li>
+					<li class="c-header-nav-item d-md-down-none mx-2">
+						<a class="c-header-nav-link" href="#">
+							<i class="cil-envelope-open c-icon"></i>
+						</a>
+					</li>
+					<li class="c-header-nav-item dropdown">
+						<a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							<div class="c-avatar">
+								<i class="cil-user c-icon"></i>
+								{# <img class="c-avatar-img" src="assets/img/avatars/6.jpg" alt="user@email.com"> #}
+							</div>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right pt-0">
+						<div class="dropdown-header bg-light py-2"><strong>Account</strong></div><a class="dropdown-item" href="#">
+							Updates<span class="badge badge-info ml-auto">42</span></a><a class="dropdown-item" href="#">
+							Messages<span class="badge badge-success ml-auto">42</span></a><a class="dropdown-item" href="#">
+							Tasks<span class="badge badge-danger ml-auto">42</span></a><a class="dropdown-item" href="#">
+							Comments<span class="badge badge-warning ml-auto">42</span></a>
+						<div class="dropdown-header bg-light py-2"><strong>Settings</strong></div><a class="dropdown-item" href="#">
+							Profile</a><a class="dropdown-item" href="#">
+							Settings</a><a class="dropdown-item" href="#">
+							Payments<span class="badge badge-secondary ml-auto">42</span></a><a class="dropdown-item" href="#">
+							Projects<span class="badge badge-primary ml-auto">42</span></a>
+						<div class="dropdown-divider"></div><a class="dropdown-item" href="#">
+							Lock Account</a><a class="dropdown-item" href="#">
+							Logout</a>
+						</div>
+					</li>
+				</ul>
+				<div class="c-subheader px-3">
+					{% block breadcrumbs %}
+						<ol class="breadcrumb border-0 m-0">
+							{% for breadcrumb_item in knp_menu_get_breadcrumbs_array(knp_menu_get_current_item('sidebar')) %}
+								{% if not loop.last %}
+									<li class="breadcrumb-item">
+										<a href="{{ breadcrumb_item.uri }}">{{ breadcrumb_item.label }}</a>
+									</li>
+								{% else %}
+									<li class="breadcrumb-item active">{{ breadcrumb_item.label }}</li>
+								{% endif %}
+							{% endfor %}
+						</ol>
+					{% endblock %}		
+				</div>
+			</header>
+
+			<div class="c-body">
+				<main class="c-main">
+					<div class="container-fluid">
+
+						{% include '_flashes.html.twig' %}
+
+						{% block body %}
+						<!-- Main content here -->
+						{% endblock %}
+						
+					</div>
+				</main>
+			</div>
+
+			<footer	class="c-footer"><!-- Footer content here -->
+			</footer>
+
+		</div>
+			{% block myDialog %}
+			<!-- Modal Dialog -->
+			{% endblock %}
+			
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+			{% endblock %}
+
+	</body>
+</html>

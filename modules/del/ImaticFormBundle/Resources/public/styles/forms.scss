@@ -1,0 +1,37 @@
+/* Collections */
+.imatic-form-collection {
+    position: relative;
+    outline: 0 solid transparent;
+
+    .form-group {
+        outline: 0 solid transparent;
+    }
+}
+
+.imatic-form-collection-marker {
+    transition: outline-width .5s, outline-color .5s, background-color .5s;
+    background-color: $table-hover-bg;
+    outline: 1px solid $table-hover-bg !important;
+}
+
+.imatic-form-collection-inline-control {
+    padding-top: $form-group-margin-bottom;
+}
+
+.form-group.imatic-form-collection-ambient {
+    position: inherit;
+
+    @media (min-width: breakpoint-min('md')) {
+        position: absolute;
+        top: 0;
+    }
+}
+
+/* Generic */
+label.required,
+legend.required {
+    &:before {
+        content: "*";
+        color: #d9534f;
+    }
+}

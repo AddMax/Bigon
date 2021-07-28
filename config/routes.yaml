@@ -1,0 +1,23 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+# config/routes.yaml
+app_extra:
+  resource: .
+  type: extra
+
+calendar_bundle:
+    resource: '@CalendarBundle/config/routes.yaml'
+
+diagram_bundle:
+    resource: '@DiagramBundle/config/routes.yaml'
+    prefix:   /admin
+
+settings_bundle:
+    resource: '@SettingsBundle/Resources/config/routes.yaml'
+    prefix:   /admin/settings
+
+graph_bundle:
+    resource: '@EducationGraphBundle/config/routes.yaml'
+    prefix:   /admin

@@ -1,0 +1,16 @@
+{% set currentRoute = app.request.get('_route') %}
+
+<div class="row">
+	<div class="col">
+		<ul class="nav nav-tabs mb-4">
+			<li class="nav-item ">
+				<a class="nav-link {% if currentRoute == 'education_plan.show' %} active {% endif %}" href="{{ path('education_plan.show', {'id': app.request.get('id')}) }}">Учебный план</a>
+			</li>
+			{% if currentRoute == 'education_subjects.show' %}
+				<li class="nav-item ">
+					<a class="nav-link active" href="{{ path('education_subjects.show', {'id': app.request.get('id')}) }}">Редактирование - III. План образовательного процесса</a>
+				</li>
+			{% endif %}
+		</ul>
+	</div>
+</div>

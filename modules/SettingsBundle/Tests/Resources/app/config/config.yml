@@ -1,0 +1,14 @@
+framework:
+    secret: foobar
+    translator: ~
+
+doctrine:
+    dbal:
+        driver: 'pdo_pgsql'
+        server_version: '10'
+    orm:
+        auto_mapping: true
+
+dmishh_settings:
+    settings:
+        my_first_setting: ~

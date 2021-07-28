@@ -1,0 +1,18 @@
+_profiler:
+    resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
+    prefix:   /_profiler
+
+_wdt:
+    resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
+    prefix:   /_wdt
+
+imatic_view_bundle:
+    resource: "@ImaticViewBundle/Resources/config/routing.xml"
+
+imatic_view_bundle_demo:
+    resource: "@ImaticViewBundle/Resources/config/routing_demo.xml"
+    prefix: /demo
+
+app_imatic_view_bundle:
+    resource: "@AppImaticViewBundle/Resources/config/routing.yml"
+    prefix: /test

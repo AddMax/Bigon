@@ -1,0 +1,11 @@
+@import "variables";
+@import "~@coreui/coreui/scss/coreui.scss";
+@import "~@coreui/icons/css/all.min.css";
+
+body {
+  background-color: lightgray;
+}
+
+.c-sidebar-nav-link {
+  white-space: normal;
+}

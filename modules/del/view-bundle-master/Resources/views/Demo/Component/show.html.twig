@@ -1,0 +1,22 @@
+{% extends '@ImaticView/Demo/base.html.twig' %}
+
+{% block headline 'Show component' %}
+
+{% block action %}
+
+    {% example %}
+    {# item var is provided by controller #}
+    {% set fields = [
+        {name: 'name', format: 'text'},
+        {name: 'age', format: 'number'},
+        {name: 'active', format: 'boolean'},
+        {name: 'lastOnline', format: 'date'},
+        {name: 'phone', format: 'phone'},
+        {name: 'email', format: 'email'},
+        {name: 'url', format: 'url'}
+    ] %}
+
+    {{ include('@ImaticView/Component/show.html.twig') }}
+    {% endexample %}
+
+{% endblock %}

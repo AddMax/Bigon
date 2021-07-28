@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Создание нового учебного плана{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">Создание нового учебного плана</div>
+            <div class="card-body">
+
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">Элементы (по умолчанию)</div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Количество недель
+                        <div class="float-rigth">
+                            <span class="badge badge-primary badge-pill">52</span>
+                            <a href="#" class="btn btn-light btn-sm"><i class="cil-pencil c-icon"></i></a>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Начало обучения (месяц)
+                        <div class="float-rigth">
+                            <span class="badge badge-primary badge-pill">Сентябрь</span>
+                            <a href="#" class="btn btn-light btn-sm"><i class="cil-pencil c-icon"></i></a>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Конец обучения (месяц)
+                        <div class="float-rigth">
+                            <span class="badge badge-primary badge-pill">Август</span>
+                            <a href="#" class="btn btn-light btn-sm"><i class="cil-pencil c-icon"></i></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

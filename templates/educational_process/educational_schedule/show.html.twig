@@ -1,0 +1,162 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование - I. График образовательного процесса
+{% endblock %}
+
+{% block body %}
+
+	{% set monthsName = ['Сентябрь','Октябрь','Ноябрь','Декабрь','Январь'] %}
+	{% set rimCourses = {1:'I',2:'II',3:'III',4:'IV',5:'V',6:'VI'} %}
+	{% set courses = 4 %}
+	{% set weeks = 52 %}
+
+	{{ include('educational_process/educational_schedule/_tabs.html.twig') }}
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div
+				class="card" data-controller="schedule">
+				{# <div class="card-header">Просмотр учебного плана</div> #}
+				<div class="card-body">
+					<div class="panel_default">
+						<button class="btn btn-light mb-1" data-action="click->schedule#praktikaProisvod">
+							<svg class="c-icon" width="16" height="16">
+								<rect width="16" height="16" style="fill:none; stroke-width:2; stroke:#000000"/>
+								<text x="4" y="13" fill="#000000" font-weight="bold" font-size="12">X</text>
+							</svg>
+							<span class="d-inline d-xl-none">ПП</span>
+							<span class="d-xl-down-none">Производственная практика (ПП)</span>
+						</button>
+						<button class="btn btn-light mb-1" data-action="click->schedule#theoretical">
+							<svg class="c-icon" width="16" height="16">
+								<rect width="16" height="16" style="fill:none; stroke-width:2; stroke:#000000"/>
+							</svg>
+							<span class="d-inline d-xl-none">ТО</span>
+							<span class="d-md-down-none">Теоретическое обучение (ТО)</span>
+						</button>
+						<button class="btn btn-light  mb-1" data-action="click->schedule#sessiaExam">
+							<svg class="c-icon" width="16" height="16">
+								<rect width="16" height="16" style="fill:none; stroke-width:2; stroke:#000000"/>
+								<text x="6" y="11" fill="#000000" font-weight="bold" font-size="12">:</text>
+							</svg>
+							<span class="d-inline d-xl-none">ЭС</span>
+							<span class="d-md-down-none">Экзаменационная сессия (ЭС)</span>
+						</button>
+						<button class="btn btn-light  mb-1" data-action="click->schedule#praktikaUchebna">
+							<svg class="c-icon" width="16" height="16">
+								<rect width="16" height="16" style="fill:none; stroke-width:2; stroke:#000000"/>
+								<text x="4" y="13" fill="#000000" font-weight="bold" font-size="12">0</text>
+							</svg>
+							<span class="d-inline d-xl-none">УП</span>
+							<span class="d-md-down-none">Учебная практика (УП)</span>
+						</button>
+						<button class="btn btn-light  mb-1" data-action="click->schedule#holiday">
+							<svg class="c-icon" width="16" height="16">
+								<rect width="16" height="16" style="fill:none; stroke-width:2; stroke:#000000"/>
+								<text x="4" y="12" fill="#000000" font-weight="bold" font-size="12">=</text>
+							</svg>
+							<span class="d-inline d-xl-none">(К)</span>
+							<span class="d-md-down-none">Каникулы (К)</span>
+						</button>
+						<button class="btn btn-light  mb-1" data-action="click->schedule#certification">
+							<svg class="c-icon" width="16" height="16">
+								<rect width="16" height="16" style="fill:none; stroke-width:2; stroke:#000000"/>
+								<text x="3" y="12" fill="#000000" font-weight="bold" font-size="12">//</text>
+							</svg>
+							<span class="d-inline d-xl-none">ИА</span>
+							<span class="d-md-down-none">Итоговая аттестация (ИА)</span>
+						</button>
+						<button class="btn btn-light  mb-1" data-action="click->schedule#clear">
+							<svg class="c-icon" width="16" height="16">
+								<rect width="16" height="16" style="fill:none; stroke-width:2; stroke:#000000"/>
+							</svg>
+							Очистить
+						</button>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-responsive table-bordered table-striped table-sm" id="example_default" style="width: auto;">
+							<thead>
+								<tr>
+									{{ _self.thTableCenter('№','tg-0pky', '50px') }}
+									{{ _self.thTableVertical('Курсы','tg-1pky', '50px') }}
+									{# {% for month in monthsName %}
+											{{ _self.thTableCenter(month,'tg-0pky', '50px') }}
+										{% endfor %} #}
+									{% for i in 1..weeks %}
+										{{ _self.thTableCenter(i,'tg-0pky', '50px') }}
+									{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="prototype" class="d-none" data-cours="__num_cours__">
+									<th class="ignore-selector">__num_cours__</th>
+									<th class="ignore-selector">__rim_cours__</th>
+									{% for week in 1..weeks %}
+										<td data-week="{{ week }}">__data_week__</td>
+									{% endfor %}
+								</tr>
+								{% for cours in educationalSchedule %}
+									<tr data-cours="{{ cours.cours }}">
+										<th class="ignore-selector">{{ cours.cours }}</th>
+										<th class="ignore-selector">{{ rimCourses[cours.cours] }}</th>
+										{% for data in cours.datas %}
+											<td data-week="{{ data.week }}">{{ data.val|raw }}</td>
+										{% endfor %}
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					<button class="btn btn-light mb-1 row-add" data-action="click->schedule#addCourse">
+						<i class="c-icon cil-library-add"></i>
+						Добавить курс
+					</button>
+					<button class="btn btn-light mb-1 row-remove" data-action="click->schedule#removeCourse">
+						<i class="c-icon cil-trash"></i>
+						Удалить курс
+					</button>
+
+				</div>
+				<div class="card-footer">
+
+					{{ form_start(form) }}
+					{{ form_widget(form) }}
+
+					<button type="submit" class="btn btn-primary" disabled style="display: none;">Сохранить</button>
+					{{ form_end(form) }}
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% macro thTableVertical(name, class, width) %}
+	<th class="{{ class }}" style="width: {{ width }};">
+		<span style="writing-mode: vertical-rl; transform: rotate(180deg);">
+			{{ name | raw }}
+		</span>
+	</th>
+{% endmacro %}
+
+{% macro thTableCenter(name, class, width) %}
+	<th class="{{ class }}" style="width: {{ width }}; text-align: center;">
+		{{ name | raw }}
+	</th>
+{% endmacro %}
+
+{% block stylesheets %}
+	{{ parent() }}
+
+	{{ encore_entry_link_tags('schedule') }}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{{ encore_entry_script_tags('schedule') }}
+
+{% endblock %}

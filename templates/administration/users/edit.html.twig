@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Users
+{% endblock %}
+
+{% block breadcrumbs %}
+	<ol class="breadcrumb border-0 m-0">
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Home</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('admin_users.list') }}">Users</a>
+		</li>
+		{# <li class="breadcrumb-item"><a href="{{ path('admin_users.edit', {'id': user.id}) }}">{{ user.name.full }}</a></li> #}
+		<li class="breadcrumb-item active">Edit</li>
+	</ol>
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="card card-accent-primary">
+				<div class="card-header">
+					<a class="btn btn-sm btn-success" href="{{ path('admin_users.list') }}">< Назад</a>
+					<strong>
+                        ID:{{ user.id }}
+                    </strong>
+				</div>
+				<div class="card-body">
+
+					{{ form_start(form) }}
+					{{ form_widget(form) }}
+					<button type="submit" class="btn btn-primary">Сохранить</button>
+					{{ form_end(form) }}
+
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card card-accent-info">
+				<div class="card-header">
+					<strong>Операции</strong>
+				</div>
+				<div class="card-body">
+					<a class="dropdown-item" href="{{ path('admin_users.delete', {'id': user.id}) }}" onclick="return confirm('Подтвердите удаление?');">
+						<i class="cil-trash c-icon mr-2"></i>Удалить учетную запись</a>
+					{# <a class="dropdown-item" href="#"><i class="cil-trash c-icon"></i>Удалить учетную запись</a> #}
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+table {
+  thead {
+    th {
+      .table-vertical {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+      }
+      text-align: center;
+    }
+  }
+  td {
+    text-align: center;
+    input[type="text"] {
+      background: aqua;
+      width: 100%;
+    }
+  }
+}

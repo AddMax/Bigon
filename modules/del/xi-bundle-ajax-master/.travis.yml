@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+
+node_js:
+  - 0.8
+
+before_script:
+  - wget http://getcomposer.org/composer.phar
+  - php composer.phar install
+  - npm install jasmine-node jsdom jquery
+  - cd Tests
+
+script: phpunit && ../node_modules/jasmine-node/bin/jasmine-node --coffee .
+
+notifications:
+  irc: "irc.freenode.net#xi-project"

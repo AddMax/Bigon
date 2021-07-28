@@ -1,0 +1,779 @@
+{% extends '@ImaticView/Demo/Ajaxify/layout.html.twig' %}
+
+{% block action %}
+
+    <div class="container">
+
+        <h2>AJAXIFY Component</h2>
+
+        <p>
+            The AJAXIFY component is a javascript solution that provides simple
+            way to convert existing HTML markup into XHR driven components.
+        </p>
+
+
+        <!-- contents -->
+        <h3>Contents</h3>
+
+        <ol>
+            <li><a href="#containers">Containers</a></li>
+            <li><a href="#widgets">Widgets</a>
+                <ol>
+                    <li><a href="#link">Link</a></li>
+                    <li><a href="#form">Form</a></li>
+                </ol>
+            </li>
+            <li><a href="#modals">Modal dialogs</a></li>
+            <li><a href="#flashes">Flash messages</a></li>
+            <li><a href="#void">Void containers</a></li>
+            <li><a href="#action-strings">Action strings</a></li>
+            <li><a href="#request-strings">Request strings</a></li>
+            <li><a href="#css">CSS classes</a></li>
+        </ol>
+
+
+        <hr>
+
+
+        <!-- containers -->
+        <h3 id="containers">Containers</h3>
+
+        <p>
+            Containers are elements that are affected by actions coming from
+            widgets. Any element that has the <code>data-role="container"</code>
+            attribute specified is considered a container.
+        </p>
+
+        {% example %}
+        <div data-role="container">
+            I am a container
+        </div>
+        {% endexample %}
+
+        <p>Autoloading container:</p>
+
+        {% example %}
+        <div data-role="container" data-initial="{{ path('imatic_view_demo_ajaxify_ajaxtest') }}" data-autoload="true">
+        </div>
+        {% endexample %}
+
+        <h4>Supported attributes</h4>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Description</th>
+                    <th>Possible values</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>data-initial</code></td>
+                    <td>
+                        <ul>
+                            <li>defines the initial request (a request string that loads initial state of the container)</li>
+                            <li>used by the <code>@reset</code>, <code>@current</code> and <code>@reload</code> <a href="#request-strings">&lt;request string&gt;</a> keywords</li>
+                        </ul>
+                    </td>
+                    <td><a href="#request-strings">&lt;request string&gt;</a></td>
+                    <td>current URL as a GET request</td>
+                </tr>
+                <tr>
+                    <td><code>data-autoload</code></td>
+                    <td>Automatically loads the <code>data-initial</code> request into the container.</td>
+                    <td>true or false</td>
+                    <td>false</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <hr>
+
+
+        <!-- widgets -->
+        <h3 id="widgets">Widgets</h3>
+
+        <p>
+            Widgets are plain HTML elements that generate actions. These actions
+            are caught and processed in the context of the element's container.
+        </p>
+
+        <ul>
+            <li><a href="#link">Link</a></li>
+            <li><a href="#form">Form</a></li>
+        </ul>
+
+        <h4>Determining the container</h4>
+
+        <p>
+            Containers are infered from the element's DOM context if the container
+            is one of the element's parents. Container may be explicitly set using
+            the<code>data-target</code> attribute (see below).
+        </p>
+
+        <div class="alert alert-info">
+            <p>
+                If a widget is not inside, does not target or targets a non-existent
+                container, it behaves as normal (e.g. a link will just load the specified
+                URL as normal links do).
+            </p>
+        </div>
+
+        <h4>Supported attributes</h4>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Description</th>
+                    <th>Possible values</th>
+                    <th>Default</th>
+                    <th>Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>data-target</code></td>
+                    <td>specifies the container</td>
+                    <td>
+                        <table class="table table-condensed table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>. (a dot) or empty</th>
+                                    <td>auto-determined from DOM context (parent)</td>
+                                </tr>
+                                <tr>
+                                    <th>modal</th>
+                                    <td><a href="#modals">modal dialog</a></td>
+                                </tr>
+                                <tr>
+                                    <th>void</th>
+                                    <td><a href="#void">void container</a></td>
+                                </tr>
+                                <tr>
+                                    <th>a selector</th>
+                                    <td>targeted container element</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>empty</td>
+                    <td>#my-container</td>
+                </tr>
+                <tr>
+                    <td><code>data-ajaxify</code></td>
+                    <td>toggle XHR functionality of the widget</td>
+                    <td>true or false</td>
+                    <td>true</td>
+                    <td>false</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <hr>
+
+
+        <!-- link -->
+        <h3 id="link">Link</h3>
+
+        <p>
+            All <code>&lt;a&gt;</code> and <code>&lt;button&gt;</code> tags are
+            considered to be instances of the Link widget.
+        </p>
+
+        <p>
+            Links that are inside (or target) a container will load HTML contents
+            into that container when activated (clicked).
+        </p>
+
+        {% example %}
+            <div data-role="container">
+                <a href="{{ path('imatic_view_demo_ajaxify_ajaxtest') }}">I am a link widget</a>
+            </div>
+        {% endexample %}
+
+        <p>
+            As noted in the <a href="#widgets">widgets section</a>, any widget
+            can live outside of its container and specify it using the
+            <code>data-target</code> attribute.
+        </p>
+ 
+        {% example %}
+            <a
+                href="{{ path('imatic_view_demo_ajaxify_ajaxtest') }}"
+                data-target="#link-example2-container"
+            >
+                <span>I am a link widget outside of its container</span>
+            </a>
+
+            <div id="link-example2-container" data-role="container">
+                I am the container
+            </div>
+        {% endexample %}
+
+        <h4>Supported attributes</h4>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>href</code> or <code>data-href</code></td>
+                    <td>the URL to load</td>
+                    <td>/example.html</td>
+                </tr>
+                <tr>
+                    <td><code>data-method</code></td>
+                    <td>HTTP method to use</td>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <td><code>data-confirm</code></td>
+                    <td>confirmation text before the action (<code>true</code> for default message)</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>data-target</code></td>
+                    <td>specifies the container</td>
+                    <td><a href="#widgets">see widgets</a></td>
+                </tr>
+                <tr>
+                    <td><code>data-content-selector</code></td>
+                    <td>response content selector</td>
+                    <td>container's ID if any</td>
+                </tr>
+                <tr>
+                    <td><code>data-action</code></td>
+                    <td>
+                        <p>custom <a href="#action-strings">&lt;action-string&gt;</a> to execute</p>
+                        <ul>
+                            <li>
+                                these actions are attempted before the link's
+                                <code>href</code> or <code>data-href</code> attributes are used
+                            </li>
+                        </ul>
+                    </td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <hr>
+
+
+        <!-- form -->
+        <h3 id="form">Form</h3>
+
+        <p>All <code>&lt;form&gt;</code> tags are considered to be instances of the Form widget.</p>
+
+        <p>
+            Forms that are inside (or target) a container will be submitted using XHR and the resulting
+            HTML contents will be loaded into that container.
+        </p>
+
+        {% example %}
+            <form action="{{ path('imatic_view_demo_ajaxify_formtest') }}" method="post" data-target="#demo-form-result">
+                Your name: <input type="text" name="name" value="Bob" required>
+                <input type="submit" name="a" value="Submit A">
+                <button type="submit" name="b"><span>Submit B</span></button>
+            </form>
+
+            <hr>
+            <div data-role="container" id="demo-form-result"></div>
+        {% endexample %}
+
+        <h4>Submit buttons</h4>
+        
+        <ul>
+            <li>Used submit button's name is included in the request data.</li>
+            <li>The <code>formmethod</code> and <code>formaction</code> attributes are supported.</li>
+        </ul>
+
+        <h4>File uploads</h4>
+
+        <ul>
+            <li>File uploads are supported if the browser supports <code>FormData</code>.</li>
+            <li>If <code>FormData</code> is not supported, any form with <code>enctype="multipart/form-data"</code>
+                will be submitted the standard way (without using XHR).</li>
+        </ul>
+
+        <h4>Supported attributes</h4>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                    <th>Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>action</code></td>
+                    <td>submission URL</td>
+                    <td>the current page</td>
+                    <td>/example.html</td>
+                </tr>
+                <tr>
+                    <td><code>method</code></td>
+                    <td>HTTP method</td>
+                    <td>GET</td>
+                    <td>POST</td>
+                </tr>
+                <tr>
+                    <td><code>data-target</code></td>
+                    <td>specifies the container</td>
+                    <td colspan="2"><a href="#widgets">see widgets</a></td>
+                </tr>
+                <tr>
+                    <td><code>data-confirm</code></td>
+                    <td>confirmation text before the action (<code>true</code> for default message)</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>data-content-selector</code></td>
+                    <td>response content selector</td>
+                    <td>-</td>
+                    <td>container's ID if any</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <hr>
+
+
+        <!-- modals -->
+        <h3 id="modals">Modal dialogs</h3>
+
+        <p>
+            Setting the <code>data-target</code> attribute of a widget
+            to <code>modal</code> causes the result to be opened
+            in a modal dialog.
+        </p>
+
+        <h4>Behaviour</h4>
+        <ul>
+            <li>
+                Stacking modal dialogs is supported.
+            </li>
+            <li>
+                All widget and container functionality is available inside
+                modals as well.
+            </li>
+            <li>
+                The modal dialog acts as a parent container for its contents.
+                Any widgets that are not contained in / targeted into another
+                container will be targeted into the modal dialog.
+            </li>
+        </ul>
+
+
+        {% example %}
+            <a
+                href="{{ path('imatic_view_demo_ajaxify_modaltest') }}"
+                data-target="modal"
+                data-modal-title="h2"
+            >
+                Modal link
+            </a>
+        {% endexample %}
+
+
+        <h4>Modal configuration</h4>
+
+        <p>
+            The modal dialog options are taken from the widget that triggers it.
+        </p>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Description</th>
+                    <th>Possible values</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>data-modal-size</code></td>
+                    <td>defines size of the modal</td>
+                    <td>small, normal, large or max</td>
+                    <td>normal</td>
+                </tr>
+                <tr>
+                    <td><code>data-modal-closable</code></td>
+                    <td>close the modal on ESC key / button / backdrop click</td>
+                    <td>true or false</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td><code>data-modal-title</code></td>
+                    <td>selector for element in the response to use as title (text contents)</td>
+                    <td>selector or <code>none</code> to disable</td>
+                    <td>the <code>X-Title</code> response header</td>
+                </tr>
+                <tr>
+                    <td><code>data-modal-footer</code></td>
+                    <td>selector for element in the response to use as footer (contents)</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>data-modal-on-close</code></td>
+                    <td>
+                        <p>perform one or more actions when the modal is closed</p>
+                        <ul>
+                            <li>the actions are triggered in context of the widget that opened the modal</li>
+                        </ul>
+                    </td>
+                    <td><a href="#action-strings">&lt;action-string&gt;</a></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>data-modal-on-close-mod</code></td>
+                    <td>
+                        <p>
+                            perform one or more actions when the modal is closed, but only if at least one non-GET request
+                            has been performed within the modal
+                        </p>
+                        <ul>
+                            <li>use <code>@reload</code> or <code>@reset</code> to refresh a container only if changes have been made</li>
+                            <li>the actions are triggered in context of the widget that opened the modal</li>
+                        </ul>
+                    </td>
+                    <td><a href="#action-strings">&lt;action-string&gt;</a></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><code>data-modal-close-on-form-success</code></td>
+                    <td>close the modal when a form is successfully submitted into it's container</td>
+                    <td>true / false</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td><code>data-modal-forward-form-response</code></td>
+                    <td>
+                        <p>forward successful form response that was submitted into the modal's container</p>
+                        <ul>
+                            <li><code>data-modal-close-on-form-success</code> must be be <code>true</code></li>
+                            <li>the action is triggered in context of the widget that opened the modal</li>
+                            <li>the action is trigered after the modal is closed</li>
+                            <li>the action is suppressed by <code>data-modal-on-close</code></li>
+                        </ul>
+                    </td>
+                    <td>true / false</td>
+                    <td>true</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <hr>
+
+
+        <!-- flashes -->
+        <h3 id="flashes">Flash messages</h3>
+
+        <p>
+            If the request is done via XHR, flash messages are handled server-side
+            and returned as a HTTP header <code>X-Flash-Messages</code>.
+        </p>
+
+
+        <h4>Displaying flash messages</h4>
+
+        <ul>
+            <li>
+                By default, the flash messages are displayed inside a modal dialog.
+            </li>
+            <li>
+                <p>
+                    If <code>BootstrapNotify.ts</code> is loaded, the messages will
+                    be displayed using the <a href="http://bootstrap-notify.remabledesigns.com/">Bootstrap Notify</a>
+                    library.
+                </p>
+            </li>
+        </ul>
+
+        {% example %}
+            <a
+                href="{{ path('imatic_view_demo_ajaxify_flashestest') }}"
+                data-target="void"
+            >
+                Click me
+            </a>
+        {% endexample %}
+
+
+        <hr>
+
+
+        <!-- void -->
+        <h3 id="void">Void containers</h3>
+
+        <p>
+            Void containers are used by setting the <code>data-target</code> attribute
+            of a <a href="#widgets">widget</a> to <code>void</code>. Void containers do
+            not exist as DOM elements in the page and thus do not display the response contents.
+        </p>
+
+        <p>
+            Void containers are useful in cases when you wish to perform a background action
+            but do not want reload an actual container in the page.
+        </p>
+
+        <h3>Example</h3>
+
+        <p>
+            The example in the <a href="#flashes">flash messages</a> section makes use
+            of a void container.
+        </p>
+
+
+        <hr>
+
+
+        <!-- action strings -->
+        <h3 id="action-strings">Action strings</h3>
+
+        <p>Action strings define one or more actions to be executed.</p>
+
+        <h4>Format</h4>
+
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th><code>&lt;action-string&gt;</code></th>
+                    <td><code>&lt;action&gt;[ | &lt;action&gt; | ...]</code></td>
+                </tr>
+                <tr>
+                    <th><code>&lt;action&gt;</code></th>
+                    <td><code>(&lt;keyword&gt; or &lt;request string&gt;)[ with &lt;css-selector&gt;]</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Behavior</h4>
+
+        <ul>
+            <li>the actions are fired in order until one of them can be executed, like so:
+                <ol>
+                    <li>see if the action supports the current container and if it does, execute it and stop</li>
+                    <li>if not, move onto the parent container</li>
+                    <li>if none of the containers are supported, move onto the next action and repeat</li>
+                </ol>
+            </li>
+            <li>should all actions fail, the default behavior takes place (e.g. default link click, form submit, etc.)</li>
+        </ul>
+
+        <h4>Supported actions</h4>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="#request-strings">&lt;request string&gt;</a></td>
+                    <td>Performs a request.</td>
+                </tr>
+                <tr>
+                    <td><code>@close-modal</code></td>
+                    <td>Closes a modal container.</td>
+                </tr>
+                <tr>
+                    <td><code>@clear</code></td>
+                    <td>Clears the container.</td>
+                </tr>
+                <tr>
+                    <td><code>@reload-page</code></td>
+                    <td>Reloads the entire page.</td>
+                </tr>
+                <tr>
+                    <td><code>@noop</code></td>
+                    <td>Does nothing.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Examples</h4>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Example</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>@reload</code></td>
+                    <td>reload the current container</td>
+                </tr>
+                <tr>
+                    <td><code>@reload with #my-container</code></td>
+                    <td>reload the container that matches the given selector</td>
+                </tr>
+                <tr>
+                    <td><code>@close-modal | @reload</code></td>
+                    <td>close a modal dialog or reload the current container</td>
+                </tr>
+                <tr>
+                    <td><code>@close-modal | @noop</code></td>
+                    <td>close a modal dialog or do nothing</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <hr>
+
+
+        <!-- request strings -->
+        <h3 id="request-strings">Request strings</h3>
+
+        <p>Request strings describe a HTTP request and can define a content selector.</p>
+
+        <h4>Format</h4>
+
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th><code>&lt;request-string&gt;</code></th>
+                    <td><code>[&lt;method&gt; ][&lt;url&gt;][;&lt;content-selector&gt;]</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            All of the segments are optional and have default values:
+        </p>
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Segment</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>&lt;method&gt;</code></td>
+                    <td>the request method (POST, GET, ...)</td>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;url&gt;</code></td>
+                    <td>
+                        <p>the URL to load</p>
+                        <ul>
+                            <li>
+                                <p>empty string or the <code>@page</code> keyword (= current document URL)</p>
+                            </li>
+                            <li>
+                                <p>the <code>@reset</code> keyword</p>
+                                <ul>
+                                    <li>loads the container's initial request URL</li>
+                                    <li>other parts of the request string are ignored</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p>the <code>@current</code> keyword</p>
+                                <ul>
+                                    <li>copies the target container's current request URL</li>
+                                    <li>other parts of the request string are left intact</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p>the <code>@reload</code> keyword</p>
+                                <ul>
+                                    <li>repeats the target container's current request</li>
+                                    <li>the request is copied, even the method and data</li>
+                                    <li>other parts of the request string are ignored</li>
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </td>
+                    <td>@page</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;content-selector&gt;</code></td>
+                    <td>response content selector</td>
+                    <td>the container's ID if any</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Examples</h4>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Example</th>
+                    <th>Preferred syntax</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>POST /hello;#container</code></td><td>-</td></tr>
+                <tr><td><code>GET /foo</code></td><td>-</td></tr>
+                <tr><td><code>POST ;#container</code></td><td><code>POST @page;#container</code></td></tr>
+                <tr><td><code>GET&nbsp;</code></td><td><code>GET @page</code></td></tr>
+                <tr><td><code>/bar;#container</code></td><td>-</td></tr>
+                <tr><td><code>/foobar</code></td><td>-</td></tr>
+                <tr><td><code>;#container</code></td><td><code>@page;#container</code></td></tr>
+                <tr><td>an empty string</td><td><code>@page</code></td></tr>
+            </tbody>
+        </table>
+
+
+        <hr>
+
+
+        <!-- css -->
+        <h3 id="css">CSS classes</h3>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>imatic-view-ajaxify-busy</code></td>
+                    <td>Element (container, widget, invisible widget's parent) that is currently busy performing an action.</td>
+                </tr>
+                <tr>
+                    <td><code>imatic-view-ajaxify-container</code></td>
+                    <td>Element holding a Container instance.</td>
+                </tr>
+                <tr>
+                    <td><code>imatic-view-ajaxify-widget</code></td>
+                    <td>Element holding a Widget instance.</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+
+	{{ encore_entry_link_tags('education-graph-editor-app') }}
+
+{% endblock %}
+
+{% block body %}
+	<div id="educational-graph-app"></div>
+	
+	<input type="hidden" id="form_educationalSchedule" name="form[educationalSchedule]" value="{{ inputed }}"/>
+
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{{ encore_entry_script_tags('education-graph-editor-app') }}
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{
+    "name": "kudin/education-graph",
+    "version": "0.1.0",
+    "type": "symfony-bundle",
+    "description": "Education Graph",
+    "license": "proprietary",
+    "authors": [
+      {
+        "name": "Kudin M V",
+        "email": "ipkudin@yandex.by"
+      }
+    ],
+    "require": {
+      "php": "^7.3"
+    },
+    "require-dev": {},
+    "config": {
+      "sort-packages": true
+    },
+    "autoload": {
+      "psr-4": {
+        "kudin\\EducationGraphBundle\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "kudin\\EducationGraphBundle\\Tests\\": "tests/"
+      }
+    },
+    "scripts": {
+      "test": "./vendor/bin/simple-phpunit"
+    },
+    "extra": {
+      "symfony": {
+        "allow-contrib": false,
+        "require": "5.0.*"
+      }
+    }
+  }
+  

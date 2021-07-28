@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service class="PhpMob\ReCaptchaBundle\Form\Type\RecaptchaType">
+            <argument>%phpmob.recaptcha.site_key%</argument>
+            <argument>%phpmob.recaptcha.theme%</argument>
+            <argument>%phpmob.recaptcha.enabled%</argument>
+            <tag name="form.type"/>
+        </service>
+        <service class="PhpMob\ReCaptchaBundle\Validator\Constraints\IsValidValidator">
+            <argument type="service" id="phpmob.recaptcha.checker"/>
+            <tag name="validator.constraint_validator" alias="phpmob.recaptcha.validator"/>
+        </service>
+        <service id="phpmob.recaptcha.checker" class="PhpMob\ReCaptchaBundle\Checker\RequestChecker">
+            <argument type="service" id="request_stack"/>
+            <argument>%phpmob.recaptcha.enabled%</argument>
+            <argument>%phpmob.recaptcha.secret_key%</argument>
+            <argument>%phpmob.recaptcha.http_proxy%</argument>
+            <argument>%phpmob.recaptcha.verify_host%</argument>
+            <argument>%phpmob.recaptcha.requested_key%</argument>
+        </service>
+        <service id="phpmob.recaptcha.firewall" class="PhpMob\ReCaptchaBundle\Firewall\LoginFormAuthenicationListener"
+                 abstract="true">
+            <argument/>
+            <argument type="service" id="phpmob.recaptcha.checker"/>
+            <argument/>
+            <argument/>
+            <argument type="service" id="logger" on-invalid="null"/>
+            <tag name="monolog.logger" channel="security"/>
+        </service>
+    </services>
+</container>

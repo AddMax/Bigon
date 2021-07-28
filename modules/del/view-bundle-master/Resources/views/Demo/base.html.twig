@@ -1,0 +1,19 @@
+{% import '@ImaticView/Component/menu.html.twig' as menu %}
+
+{% extends '@ImaticView/Layout/base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("/bundles/imaticview/demo.css") }}" type="text/css">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("/bundles/imaticview/demo.js") }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block header_menu %}
+    {{ menu.menu('imatic.demo') }}
+{% endblock %}
+
+{% block application_name 'Imatic IS View demo' %}
